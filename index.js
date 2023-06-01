@@ -304,7 +304,7 @@ function insert_xml_data(xmlData) {
   $.ajax({
     type: "POST",
     data: dataObject,
-    url: "./excelDownload.php",
+    url: "./xmlInsertDownload.php",
     success: function () {},
     error: function () {
       alert("텅신실패");

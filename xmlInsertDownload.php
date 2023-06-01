@@ -21,11 +21,14 @@ $object4 = $_POST["object4"];
 $object5 = $_POST["object5"];
 $object6 = $_POST["object6"];
 
-// DB insert
+// 1. DB insert (insert 테이블 변경 필수)
 // $sql = "INSERT INTO xmltable3 VALUES ('$filename','$width','$height','$channel','$object1','$object2','$object3','$object4','$object5','$object6');";
 // $result=mysqli_query($conn, $sql);
 
-/*
+// 임시 테이블 하나로 insert 쿼리
+// INSERT INTO xmltable_20230601 (SELECT * FROM xmltable3)
+
+// 2. DB select ExcelDownload (select 테이블 변경 필수)
 $style = [
     'borders' => [
 		'allborders' => [
@@ -73,8 +76,8 @@ $sheet ->setCellValue("A1", "Filename")
         ->setCellValue("I1", "Object5")
         ->setCellValue("J1", "Object6");
 
-// DB 데이터 추출
-$sql = "select * from xmltable order by filename;";
+// DB 데이터 추출 (select 테이블 변경)
+$sql = "select * from xmltable_20230601 order by filename;";
 $result=mysqli_query($conn, $sql);
 
 $line = 2;
@@ -101,6 +104,5 @@ header('Cache-Control: max-age=0');
 
 $objWriter = PHPExcel_IOFactory::createWriter($phpExcel, 'Excel5');
 $objWriter->save('php://output');
-*/
 
 ?>
